@@ -57,16 +57,23 @@ class LiveBroadcast extends React.Component {
     return (
       <div className='LiveBroadcast_container'>
         <div className='LiveBroadcast_info_container my-padding-twenty'>
-          <img
-            className='LiveBroadcast_thumbnail_image my-full-width'
-            src={thumbnails.high.url}
-          />
+          <a href={`https://youtu.be/${broadcast.id}`} target='_blank'>
+            <img
+              className='LiveBroadcast_thumbnail_image my-full-width'
+              src={thumbnails.high.url}
+            />
+          </a>
           <br />
           <br />
-          <h3 className='my-bold'>{title}</h3>
-          <h5>{description || 'No Description Found.'}</h5>
-          <span className='broadcast_thumbnail_status'>{life_cycle_status}</span>
-          <span className='broadcast_thumbnail_status'>{privacy_status}</span>
+          <div>
+            <div className='my-float-right'>
+              <div className='my-button'>Watch</div>
+            </div>
+            <h3 className='my-bold'>{title}</h3>
+            <h5>{description || 'No Description Found.'}</h5>
+            <span className='broadcast_thumbnail_status'>{life_cycle_status}</span>
+            <span className='broadcast_thumbnail_status'>{privacy_status}</span>
+          </div>
         </div>
         <div className='LiveBroadcast_chat_container'>
           {this.renderMessages()}
