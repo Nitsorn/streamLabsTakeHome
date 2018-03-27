@@ -6,11 +6,13 @@ join a live video stream. Once in the stream, it should stream all chat messages
 and update live. Store these messages and create another interface that will
 return all chat messages from a given username.
 
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/Y2C3izspq4M/0.jpg)](https://www.youtube.com/watch?v=Y2C3izspq4M)
+
 ## Brief Explanation
 Here you will find my solution to the assignment. You can look at https://youtu.be/Y2C3izspq4M for a (completed) live stream of my attempt to connect to that particular live stream via API. It's livestreamception.
 
 ## Stack
-I am using a Ruby on Rails stack with implementation of webpack on the frontend to introduce React. I have had 1-2 years experience working in a similar stack, although none with this particular gem "react-rails" `https://github.com/reactjs/react-rails`.
+I am using a Ruby on Rails stack with implementation of webpack on the frontend to introduce React. I have had 1-2 years experience working in a similar stack, although none with this particular gem `react-rails` https://github.com/reactjs/react-rails.
 
 # Flow
 The flow of the webapp follows the following calls to Google/Youtube APIs
