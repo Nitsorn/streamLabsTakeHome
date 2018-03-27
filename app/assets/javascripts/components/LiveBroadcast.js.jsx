@@ -5,7 +5,8 @@ class LiveBroadcast extends React.Component {
       messages: [],
       pollIntervalInSeconds: null,
       newMessage: '',
-      loaded: false
+      loaded: false,
+      submitting: false
     }
     this.poll = null;
   }
@@ -82,28 +83,40 @@ class LiveBroadcast extends React.Component {
     const { broadcast } = this.props;
     const { snippet } = broadcast;
 
-    $.ajax({
-      url: `/api/messages?chat_id=${snippet.live_chat_id}&message=${newMessage}`,
-      method: 'POST',
-      success: (response) => {
-        this.setState({newMessage: ''})
-        clearInterval(this.poll);
-        this.fetchChatMessages(true);
-      },
-      error: (err) => {
-        debugger;
-      }
+    this.setState({
+      submitting: true
+    }, _ => {
+      $.ajax({
+        url: `/api/messages?chat_id=${snippet.live_chat_id}&message=${newMessage}`,
+        method: 'POST',
+        success: (response) => {
+          this.setState({
+            newMessage: '',
+            submitting: false
+          })
+          clearInterval(this.poll);
+          this.fetchChatMessages(true);
+        },
+        error: (err) => {
+          debugger;
+          alert('Error posting a message');
+          this.setState({
+            submitting: false
+          })
+        }
+      })
     })
   }
 
   renderNewMessage() {
-    const { newMessage } = this.state;
+    const { newMessage, submitting } = this.state;
     return (
       <div className='LiveBroadcast_chat_new_message_container'>
         <form
           className='my-align-items-inline'
           onSubmit={this.submit.bind(this)}>
           <input
+            disabled={submitting}
             className='LiveBroadcast_chat_new_message_input'
             value={newMessage}
             placeholder='Say something...'
@@ -114,8 +127,9 @@ class LiveBroadcast extends React.Component {
             }}
           />
           <button
+            disabled={submitting}
             className='LiveBroadcast_chat_new_message_button'
-            type='submit'>Send</button>
+            type='submit'>{submitting ? "Sending..." :'Send'}</button>
         </form>
       </div>
     )

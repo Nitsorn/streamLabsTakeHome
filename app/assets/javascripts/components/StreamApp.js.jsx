@@ -76,6 +76,14 @@ class StreamApp extends React.Component {
     return (
       <div className='broadcast_thumbnails_container'>
         <h3 className='my-bold'>Welcome, {current_user.email}</h3>
+        <button
+          className='my-button my-button-return'
+          onClick={ _ => {
+            window.location = '/users/sign_out'
+          }}
+        >
+          Sign Out
+        </button>
         <br />
         <br />
         <h4>Here are your streams!</h4>

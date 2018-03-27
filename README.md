@@ -49,3 +49,6 @@ Many improvements can be done. For instance, a lot of the edge cases were not co
 - Polling for new messages once the stream is no longer live.
 
 Other improvements in UI (disabling input and button on new chat message when posting), keeping controllers dry, One-Flow Auth etc. could also be implemented in the future.
+
+
+# Thank you! 
