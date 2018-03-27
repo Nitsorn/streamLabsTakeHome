@@ -42,3 +42,10 @@ I almost got it working with `omniauth-google-oauth2` gem, but there was an issu
 3.3. Get last 20 (or 10 or 30 or 100) and see if they were all from `y` authors (length).
 
 3.4 Run a regression analysis on a test broadcast channel, monitoring whether or not that instance is a hype or not. The analysis will look at `x = rate of message creation in that timespan`, and `y = number of authors messaging in that timespan`. So the algorithm will be `f(x,y)`.
+
+## Future Works
+Many improvements can be done. For instance, a lot of the edge cases were not considered. These include
+- Error handling when connecting to API
+- Polling for new messages once the stream is no longer live.
+
+Other improvements in UI (disabling input and button on new chat message when posting), keeping controllers dry, One-Flow Auth etc. could also be implemented in the future.
