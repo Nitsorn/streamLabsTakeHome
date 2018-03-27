@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   # api endpoints
   get '/api/streams', to: 'streams#all'
   get '/api/messages', to: 'messages#all_in_chat'
-  get '/api/messages_by_author', to: 'messages#all_by_author'
+  # get '/api/messages_by_author', to: 'messages#all_by_author'
+  get '/api/messages_by_author', to: 'authors#messages'
   post '/api/messages', to: 'messages#create'
 end
