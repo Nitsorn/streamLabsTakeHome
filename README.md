@@ -14,7 +14,7 @@ Here you will find my solution to the assignment. You can look at https://youtu.
 ## Stack
 I am using a Ruby on Rails stack with implementation of webpack on the frontend to introduce React. I have had 1-2 years experience working in a similar stack, although none with this particular gem `react-rails` https://github.com/reactjs/react-rails.
 
-# Flow
+## Flow
 The flow of the webapp follows the following calls to Google/Youtube APIs
 - Registering my app on Google API Dashboard, storing `client_token` and `client_secret`.
 - Authenticating user via Oauth2, through `omniauth-google-oauth2` https://github.com/zquestz/omniauth-google-oauth2, requesting required youtube scopes.
@@ -51,4 +51,4 @@ Many improvements can be done. For instance, a lot of the edge cases were not co
 Other improvements in UI (disabling input and button on new chat message when posting), keeping controllers dry, One-Flow Auth etc. could also be implemented in the future.
 
 
-# Thank you! 
+# Thank you!
