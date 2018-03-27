@@ -12,6 +12,9 @@
 
 ActiveRecord::Schema.define(version: 20180326174008) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "authors", force: :cascade do |t|
     t.string   "display_name"
     t.string   "channel_url"
@@ -29,8 +32,8 @@ ActiveRecord::Schema.define(version: 20180326174008) do
     t.integer  "live_chat_id"
     t.datetime "published_at"
     t.integer  "author_id"
-    t.index ["author_id"], name: "index_live_chat_messages_on_author_id"
-    t.index ["live_chat_id"], name: "index_live_chat_messages_on_live_chat_id"
+    t.index ["author_id"], name: "index_live_chat_messages_on_author_id", using: :btree
+    t.index ["live_chat_id"], name: "index_live_chat_messages_on_live_chat_id", using: :btree
   end
 
   create_table "live_chats", force: :cascade do |t|
@@ -54,8 +57,10 @@ ActiveRecord::Schema.define(version: 20180326174008) do
     t.string   "last_sign_in_ip"
     t.string   "token"
     t.string   "refresh_token"
-    t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
+  add_foreign_key "live_chat_messages", "authors"
+  add_foreign_key "live_chat_messages", "live_chats"
 end

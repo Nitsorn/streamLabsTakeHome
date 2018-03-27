@@ -65,7 +65,7 @@ class AuthorApp extends React.Component {
     return (
       <div className='author_thumbnails_container'>
         <h4 className='my-bold'>Authors in external Database</h4>
-        {
+        { authors.length > 0 ?
           authors.map( author => {
             const { display_name, profile_image_url, channel_url } = author;
             return (
@@ -87,7 +87,9 @@ class AuthorApp extends React.Component {
                 <div>{display_name}</div>
               </div>
             )
-          })
+          }) : (
+            <div className='my-padding-twenty'>No Authors Found.</div>
+          )
         }
       </div>
     )
