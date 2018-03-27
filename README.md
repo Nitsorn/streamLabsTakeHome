@@ -35,10 +35,10 @@ I almost got it working with `omniauth-google-oauth2` gem, but there was an issu
 
 3. `Bonus - Hype in Chat` - Although I did not get to the bonus question, I thought there are few ways to determine "hypeness" of a channel.
 
-3.1 Without updating postgres db - If `broadcast.chat_messages.length/broadcast.duration` is over a certain threshold. Although this would label streams that have recently cooled down as hype as well.
+3.1. If `broadcast.chat_messages.length/broadcast.duration` is over a certain threshold. Although this would label streams that have recently cooled down as hype as well.
 
-3.2 Without updating postgres db - Get last 20 (or 10 or 30 or 100) and see if they were all `published_at` after `x` minutes ago.
+3.2. Get last 20 (or 10 or 30 or 100) and see if they were all `published_at` after `x` minutes ago.
 
-3.3 Without updating postgres db - Get last 20 (or 10 or 30 or 100) and see if they were all from `y` authors (length).
+3.3. Get last 20 (or 10 or 30 or 100) and see if they were all from `y` authors (length).
 
 3.4 Run a regression analysis on a test broadcast channel, monitoring whether or not that instance is a hype or not. The analysis will look at `x = rate of message creation in that timespan`, and `y = number of authors messaging in that timespan`. So the algorithm will be `f(x,y)`.
