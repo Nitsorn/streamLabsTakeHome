@@ -4,7 +4,8 @@ class LiveBroadcast extends React.Component {
     this.state = {
       messages: [],
       pollIntervalInSeconds: null,
-      newMessage: ''
+      newMessage: '',
+      loaded: false
     }
     this.poll = null;
   }
@@ -28,9 +29,10 @@ class LiveBroadcast extends React.Component {
         if (response.messages) {
           this.setState({
             messages: response.messages,
+            loaded: true
           }, _ => {
             if (initiatePolling) {
-              this.pollForNewMessages(response.polling_interval_millis)
+              this.pollForNewMessages(response.polling_interval_millis * 1.5)
             }
           })
         }
@@ -47,21 +49,28 @@ class LiveBroadcast extends React.Component {
 
   render() {
     const { broadcast } = this.props;
-    const { snippet } = broadcast;
-    const { thumbnails, title } = snippet;
+    const { snippet, status } = broadcast;
+    const { thumbnails, title ,description } = snippet;
+    const { life_cycle_status, privacy_status } = status;
 
     return (
-      <div>
-
-        <img
-          src={thumbnails.high.url}
-          height={thumbnails.high.height}
-          width={thumbnails.high.width}
-        />
-        <div>{title}</div>
-        <div>{broadcast.id}</div>
-        {this.renderMessages()}
-        {this.renderNewMessage()}
+      <div className='LiveBroadcast_container'>
+        <div className='LiveBroadcast_info_container my-padding-twenty'>
+          <img
+            className='LiveBroadcast_thumbnail_image my-full-width'
+            src={thumbnails.high.url}
+          />
+          <br />
+          <br />
+          <h3 className='my-bold'>{title}</h3>
+          <h5>{description || 'No Description Found.'}</h5>
+          <span className='broadcast_thumbnail_status'>{life_cycle_status}</span>
+          <span className='broadcast_thumbnail_status'>{privacy_status}</span>
+        </div>
+        <div className='LiveBroadcast_chat_container'>
+          {this.renderMessages()}
+          {this.renderNewMessage()}
+        </div>
       </div>
     )
   }
@@ -90,9 +99,12 @@ class LiveBroadcast extends React.Component {
   renderNewMessage() {
     const { newMessage } = this.state;
     return (
-      <div>
-        <form onSubmit={this.submit.bind(this)}>
+      <div className='LiveBroadcast_chat_new_message_container'>
+        <form
+          className='my-align-items-inline'
+          onSubmit={this.submit.bind(this)}>
           <input
+            className='LiveBroadcast_chat_new_message_input'
             value={newMessage}
             placeholder='Say something...'
             onChange={ e => {
@@ -101,28 +113,44 @@ class LiveBroadcast extends React.Component {
               })
             }}
           />
-          <button type='submit'>Send</button>
+          <button
+            className='LiveBroadcast_chat_new_message_button'
+            type='submit'>Send</button>
         </form>
       </div>
     )
   }
 
   renderMessages() {
-    const { messages } = this.state;
+    const { messages, loaded } = this.state;
     return (
-      <div>
-        {
+      <div className='LiveBroadcast_chat_messages_container'>
+        { messages.length > 0 ?
           messages.map( message => {
             const { snippet, author_details } = message;
-            const { display_name } = author_details;
+            const { display_name, profile_image_url } = author_details;
             const { display_text, text_message_details, published_at } = snippet;
             const { message_text } = text_message_details;
             return (
-              <div key={message.id}>
-                <strong>{display_name}</strong> <span>{message_text}</span>
+              <div
+                className='LiveBroadcast_chat_messages_message_wrapper my-align-items-inline'
+                key={message.id}>
+                <img
+                  className='LiveBroadcast_chat_messages_message_profile_picture'
+                  src={profile_image_url}
+                  height={20}
+                  width={20}
+                />
+                <span className='my-bold LiveBroadcast_chat_messages_message_author_name'>{display_name}</span> <span>{message_text}</span>
               </div>
             )
-          })
+          }) : (
+            loaded ? (
+              <div className='my-padding-twenty'>No messages found. Start typing to see it here.</div>
+            ) : (
+              <div className='my-padding-twenty'>Loading...</div>
+            )
+          )
         }
 
       </div>

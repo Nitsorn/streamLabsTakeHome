@@ -36,13 +36,17 @@ class AuthorMessages extends React.Component {
     const { display_name, profile_image_url } = author;
 
     return (
-      <div>
+      <div className='AuthorMessages_container'>
         <img
+          className='AuthorMessages_profile_image'
           src={profile_image_url}
-          height={50}
-          width={50}
+          height={120}
+          width={120}
         />
-        <div>{display_name}</div>
+        <br />
+        <br />
+        <div className='my-bold'>{display_name}</div>
+        <br />
         {
           expanded_live_chat ?
           this.renderMessages() :
@@ -56,17 +60,22 @@ class AuthorMessages extends React.Component {
     const { expanded_live_chat } = this.state;
     return (
       <div>
-        <button onClick={ _ => this.setState({expanded_live_chat: null})}>
-          back to videos
+        <button
+          className='my-button my-button-return'
+          onClick={ _ => this.setState({expanded_live_chat: null})}>
+          Back to videos
         </button>
         <br />
         <br />
+        <h5>Comments on video {expanded_live_chat.video_title}</h5>
         <div>
           {
             expanded_live_chat.messages.map( message => {
               const { text_message } = message;
               return (
-                <div key={message.id}>
+                <div
+                  className='live_chat_message_wrapper my-padding-twenty my-cursor-default'
+                  key={message.id}>
                   {text_message}
                 </div>
               )
@@ -88,6 +97,7 @@ class AuthorMessages extends React.Component {
             return (
               <div
                 key={live_chat.id}
+                className='live_chat_wrapper my-padding-twenty'
                 onClick={ _ => this.setState({
                   expanded_live_chat: live_chat
                 })}

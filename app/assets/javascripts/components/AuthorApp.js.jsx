@@ -10,12 +10,16 @@ class AuthorApp extends React.Component {
   render() {
     const { expanded_author } = this.state;
     return (
-      <div className='StreamApp_container'>
+      <div className='AuthorApp_container my-content-wrapper'>
+        <div className='AuthorApp_link_to_profile my-position-fixed my-top my-right my-padding-twenty'>
+          {this.renderLinkToProfile()}
+        </div>
         {
           expanded_author ?
             (
               <div>
                 <button
+                  className='my-button my-button-return'
                   onClick={ _ => {
                     this.setState({expanded_author: null})
                   }}
@@ -31,23 +35,43 @@ class AuthorApp extends React.Component {
 
             ) :
             this.renderAuthors()
-
         }
+        <br />
+
       </div>
+    )
+  }
+
+  renderLinkToProfile() {
+    const { current_user } = this.props;
+    if (current_user) {
+      return (
+        <button
+          onClick={ _ => window.location = '/home'}
+          className='my-button my-button-sign-in'>Go to Portal
+        </button>
+      )
+    }
+    else return (
+      <button
+        onClick={ _ => window.location = '/users/auth/google_oauth2'}
+        className='my-button my-button-sign-in'>Log in with Youtube
+      </button>
     )
   }
 
   renderAuthors() {
     const { authors } = this.state;
     return (
-      <div>
-        <h4>Comment authors in external DB!</h4>
+      <div className='author_thumbnails_container'>
+        <h4 className='my-bold'>Authors in external Database</h4>
         {
           authors.map( author => {
             const { display_name, profile_image_url, channel_url } = author;
             return (
               <div
                 key={author.id}
+                className='my-align-items-inline author_thumbnail_wrapper'
                 onClick={ _ => {
                   this.setState({
                     expanded_author: author
@@ -55,9 +79,10 @@ class AuthorApp extends React.Component {
                 }}
               >
                 <img
+                  className='author_thumbnail_profile_image'
                   src={profile_image_url}
-                  height={30}
-                  width={30}
+                  height={50}
+                  width={50}
                 />
                 <div>{display_name}</div>
               </div>

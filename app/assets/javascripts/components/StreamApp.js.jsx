@@ -2,8 +2,9 @@ class StreamApp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      broadcasts: props.broadcasts || [],
-      expanded_broadcast: null
+      broadcasts: [],
+      expanded_broadcast: null,
+      loaded: false
     }
   }
 
@@ -12,14 +13,13 @@ class StreamApp extends React.Component {
       url: '/api/streams',
       method: 'GET',
       success: (response) => {
-        debugger;
-        if (response.broadcasts) this.setState({
-          broadcasts: response.broadcasts
+        this.setState({
+          broadcasts: response.broadcasts || [],
+          loaded: true
         })
       },
       error: (err) => {
         alert('error fetching broadcasts')
-        debugger;
       }
     })
 
@@ -28,12 +28,16 @@ class StreamApp extends React.Component {
   render() {
     const { expanded_broadcast } = this.state;
     return (
-      <div className='StreamApp_container'>
+      <div className='StreamApp_container my-content-wrapper'>
+        <div className='AuthorApp_link_to_profile my-position-fixed my-top my-right my-padding-twenty'>
+          {this.renderLinkToAuthorsDashboard()}
+        </div>
         {
           expanded_broadcast ?
             (
               <div>
                 <button
+                  className='my-button my-button-return'
                   onClick={ _ => {
                     this.setState({expanded_broadcast: null})
                   }}
@@ -55,36 +59,63 @@ class StreamApp extends React.Component {
     )
   }
 
+  renderLinkToAuthorsDashboard() {
+    return (
+      <button
+        onClick={ _ => window.location = '/authors'}
+        className='my-button my-button-author'>Query Messages By Author
+      </button>
+    )
+  }
+
+
+
   renderBroadcasts() {
     const { current_user } = this.props;
-    const { broadcasts } = this.state;
+    const { broadcasts, loaded } = this.state;
     return (
-      <div>
-        <h3>Welcome, {current_user.email}</h3>
+      <div className='broadcast_thumbnails_container'>
+        <h3 className='my-bold'>Welcome, {current_user.email}</h3>
+        <br />
+        <br />
         <h4>Here are your streams!</h4>
-        {
+        { broadcasts.length > 0 ?
           broadcasts.map( broadcast => {
-            const { snippet } = broadcast;
+            const { snippet, status } = broadcast;
             const {thumbnails, title } = snippet;
+            const { life_cycle_status, privacy_status } = status;
             return (
               <div
                 key={broadcast.id}
-                onClick={ _ => {
-                  this.setState({
-                    expanded_broadcast: broadcast
-                  })
-                }}
+                className='broadcast_thumbnail_wrapper'
+
               >
                 <img
-                  src={thumbnails.medium.url}
+                  className='broadcast_thumbnail_image'
+                  src={thumbnails.high.url}
                   height={thumbnails.medium.height}
                   width={thumbnails.medium.width}
+                  onClick={ _ => {
+                    this.setState({
+                      expanded_broadcast: broadcast
+                    })
+                  }}
                 />
-                <div>{title}</div>
-                <div>{broadcast.id}</div>
+                <h4 className='my-bold'>
+                  {title}
+                  <span className='broadcast_thumbnail_status'>{life_cycle_status}</span>
+                  <span className='broadcast_thumbnail_status'>{privacy_status}</span>
+                </h4>
+
               </div>
             )
-          })
+          }) : (
+            loaded ? (
+              <div className='my-padding-twenty'>No streams found. Start streaming to see it here.</div>
+            ) : (
+              <div className='my-padding-twenty'>Loading...</div>
+            )
+          )
         }
       </div>
     )

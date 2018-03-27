@@ -1,0 +1,116 @@
+@import "colors";
+
+.my-flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.my-position-fixed {
+  position: fixed;
+}
+
+.my-top {
+  top: 0;
+}
+
+.my-right {
+  right: 0;
+}
+
+.my-padding-ten {
+  padding: 10px;
+}
+
+.my-padding-twenty {
+  padding: 20px;
+}
+
+
+
+.my-align-center {
+  text-align: center;
+}
+
+.my-bold {
+  font-weight: 600;
+}
+
+.my-full-width {
+  width: 100% !important;
+}
+
+.my-block {
+  display: block;
+}
+
+.my-inline-block {
+  display: inline-block;
+}
+
+.my-align-items-inline {
+  & > * {
+    display: inline-block;
+    vertical-align: middle;
+  }
+}
+
+.my-content-wrapper {
+  width: 100%;
+  max-width: 1200px;
+  padding: 50px;
+  margin: auto;
+  display: block;
+}
+
+.my-cursor-pointer {
+  cursor: pointer;
+}
+
+.my-cursor-default {
+  cursor: default !important;
+}
+
+.my-button {
+  padding: 10px 20px;
+  border-radius: 2px;
+  background-color: white;
+  text-align: center;
+  outline: none;
+  border: 1px solid whitesmoke;
+  box-shadow: 0 4px 0px 0 rgb(191, 191, 191);
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 15px;
+  color: $font-d;
+  transition: 0.3s ease;
+  font-weight: 400;
+
+  &.my-button-return {
+    // background: transparent;
+    border: 1px solid white;
+    font-size: 12px;
+    padding: 5px 10px;
+    border-radius: 20px;
+  }
+
+  &:hover {
+    background: #c1dbe3;
+  }
+
+  &.my-button-sign-in {
+    padding-left: 50px;
+    background-image: url('https://cdn1.iconfinder.com/data/icons/logotypes/32/youtube-64.png');
+    background-size: 20px;
+    background-position: 16px center;
+    background-repeat: no-repeat;
+  }
+
+  &.my-button-author {
+    padding-left: 50px;
+    background-image: url('https://cdn3.iconfinder.com/data/icons/glyph/227/Code-256.png');
+    background-size: 20px;
+    background-position: 16px center;
+    background-repeat: no-repeat;
+  }
+}

@@ -13,3 +13,24 @@
  *= require_tree .
  *= require_self
  */
+
+* {
+  box-sizing: border-box;
+}
+
+*, html, body {
+  font-family: sans-serif;
+  color: white;
+  font-weight: 100;
+}
+
+body {
+  /* background-color: #1e505f; */
+  background: linear-gradient(35deg, #1e505f,#09171b);
+  min-height: 100vh;
+}
+
+button {
+  cursor: pointer;
+  color: black;
+}
