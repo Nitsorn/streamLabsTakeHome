@@ -67,7 +67,13 @@ class LiveBroadcast extends React.Component {
           <br />
           <div>
             <div className='my-float-right'>
-              <div className='my-button'>Watch</div>
+              <a
+                href={`https://youtu.be/${broadcast.id}`}
+                target='_blank'
+                className='my-button'
+              >
+                Watch
+              </a>
             </div>
             <h3 className='my-bold'>{title}</h3>
             <h5>{description || 'No Description Found.'}</h5>
@@ -159,8 +165,8 @@ class LiveBroadcast extends React.Component {
                 <img
                   className='LiveBroadcast_chat_messages_message_profile_picture'
                   src={profile_image_url}
-                  height={20}
-                  width={20}
+                  height={40}
+                  width={40}
                 />
                 <span className='my-bold LiveBroadcast_chat_messages_message_author_name'>{display_name}</span> <span>{message_text}</span>
               </div>
