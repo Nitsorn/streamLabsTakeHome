@@ -6,9 +6,28 @@ class StreamApp extends React.Component {
       expanded_broadcast: null,
       loaded: false
     }
+
+    this.poll = null;
   }
 
   componentDidMount() {
+    this.startFetchingBroadcasts();
+  }
+
+  startFetchingBroadcasts() {
+    this.fetchBroadcasts();
+    this.poll = setInterval(this.fetchBroadcasts.bind(this), 10000);
+  }
+
+  componentWillUnmount() {
+    this.stopFetchingBroadcasts();
+  }
+
+  stopFetchingBroadcasts() {
+    clearInterval(this.poll);
+  }
+
+  fetchBroadcasts() {
     $.ajax({
       url: '/api/streams',
       method: 'GET',
@@ -22,7 +41,6 @@ class StreamApp extends React.Component {
         alert('error fetching broadcasts')
       }
     })
-
   }
 
   render() {
@@ -39,7 +57,10 @@ class StreamApp extends React.Component {
                 <button
                   className='my-button my-button-return'
                   onClick={ _ => {
-                    this.setState({expanded_broadcast: null})
+                    this.setState({expanded_broadcast: null}, _ => {
+                      this.stopFetchingBroadcasts();
+                      this.startFetchingBroadcasts();
+                    })
                   }}
                 >
                   Back to list

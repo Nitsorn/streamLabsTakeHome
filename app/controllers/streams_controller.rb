@@ -31,7 +31,7 @@ class StreamsController < ApplicationController
       #   b.id
       # end
       # @broadcasts_stats = client.list_videos('statistics',id: "#{@broadcast_ids.join(',')}")
-      
+
       return render json: {
         broadcasts: @broadcasts.items  || [],
       }, status: 200
